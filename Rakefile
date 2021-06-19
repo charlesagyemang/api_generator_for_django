@@ -1,4 +1,4 @@
-require_relative './model_generator'
+require_relative './generator'
 
 def form_validation_fields(fields)
   form_fields_data_create = []
