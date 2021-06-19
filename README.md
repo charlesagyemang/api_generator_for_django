@@ -82,3 +82,27 @@ rake g:model Group apps__users name:str:req description:str users:mm info:json
 
 # run the command and you're done
 ```
+
+
+## SCAFFOLD GENERATOR (This adds a model and the whole CRUD operation)
+### USAGE 
+```ruby
+"""
+Lets Add A Group Model which has the following fields;
+name        => String => Required
+description => String => Not Required
+users => Users => Association (Group Can Have Many Users)
+is_archived => Boolean => Not Required
+info => JSON field => Not Required
+
+lets look at the create command
+rake g:scaffold <Model Name> <Associations> <directory> <field1:type:required?> <field2:type:required?>.......
+
+This is how you will create something like that
+"""
+
+ rake g:scaffold Asset documents apps__users  name:str:req description:str documents:mm is_archived:bool info:json
+
+
+# run the command and you're done
+```

@@ -78,17 +78,19 @@ module Helper
         field_name, field_type = each_field[0], each_field[1]
         is_required = ""
         (each_field[2] && each_field[2] === "req") ? is_required = "True" : is_required = "False"
-        if index > 0
-          form_fields_data_create.push("\t\tself.validator.expect('#{field_name}', #{field_type}, is_required=#{is_required})")
-          form_fields_data_update.push("\t\tself.validator.expect('#{field_name}', #{field_type}, is_required=False)")
-          create_fields_data.push("\t\t\t\t#{field_name}=args['#{field_name}'],")
-          update_fields_data.push("\t\t\tgotten_data.#{field_name}= args['#{field_name}']")
-        else
-          form_fields_data_create.push("self.validator.expect('#{field_name}', #{field_type}, is_required=#{is_required})")
-          form_fields_data_update.push("self.validator.expect('id', str, is_required=True)")
-          form_fields_data_update.push("\t\tself.validator.expect('#{field_name}', #{field_type}, is_required=False)")
-          create_fields_data.push("#{field_name}=args['#{field_name}'],")
-          update_fields_data.push("gotten_data.#{field_name}= args['#{field_name}']")
+        if (field_type != "mm")
+          if index > 0
+            form_fields_data_create.push("\t\tself.validator.expect('#{field_name}', #{field_type}, is_required=#{is_required})")
+            form_fields_data_update.push("\t\tself.validator.expect('#{field_name}', #{field_type}, is_required=False)")
+            create_fields_data.push("\t\t\t\t#{field_name}=args['#{field_name}'],")
+            update_fields_data.push("\t\t\tgotten_data.#{field_name}= args['#{field_name}']")
+          else
+            form_fields_data_create.push("self.validator.expect('#{field_name}', #{field_type}, is_required=#{is_required})")
+            form_fields_data_update.push("self.validator.expect('id', str, is_required=True)")
+            form_fields_data_update.push("\t\tself.validator.expect('#{field_name}', #{field_type}, is_required=False)")
+            create_fields_data.push("#{field_name}=args['#{field_name}'],")
+            update_fields_data.push("gotten_data.#{field_name}= args['#{field_name}']")
+          end
         end
     end
     return {
