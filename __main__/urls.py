@@ -2,6 +2,12 @@ from django.contrib import admin #type: ignore
 from django.urls import path #type: ignore
 from apps__investments.handlers.investment import InvestmentHandler #type: ignore
 from apps__users.handlers.asset_handler import AssetHandler#just added 
+from apps__users.handlers.asset_handler import AssetHandler#just added 
+from apps__users.handlers.asset_handler import AssetHandler#just added 
+from apps__users.handlers.asset_handler import AssetHandler#just added 
+from apps__users.handlers.asset_handler import AssetHandler#just added 
+from apps__users.handlers.asset_handler import AssetHandler#just added 
+from apps__users.handlers.asset_handler import AssetHandler#just added 
 
 # app__users routes Begin ###########
 from apps__users.handlers.role_handler import RoleHandler #type: ignore
@@ -25,6 +31,12 @@ ROUTE_HANDLERS = [
   UserProfileHandler(),
   UserGroupHandler(),
   AuthHandler(),
+  AssetHandler(), #just added 
+  AssetHandler(), #just added 
+  AssetHandler(), #just added 
+  AssetHandler(), #just added 
+  AssetHandler(), #just added 
+  AssetHandler(), #just added 
   AssetHandler(), #just added 
 ]
 

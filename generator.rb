@@ -50,13 +50,13 @@ module Helper
       if ["mm", "fk"].include?(field_type)
         model = field_name.split("")[0...-1].join("").capitalize()
         field_type == "mm" ? many_to_many.push(field_name) : fields_array.push(field_name)
-        return_array.push("    #{field_name} = models.#{key[:name]}(#{model}, #{key[:default]}blank=#{is_required})")
+        return_array.push("  #{field_name} = models.#{key[:name]}(#{model}, #{key[:default]}blank=#{is_required})")
       else
         fields_array.push(field_name)
-        return_array.push("    #{field_name} = models.#{key[:name]}(#{key[:default]}blank=#{is_required})")
+        return_array.push("  #{field_name} = models.#{key[:name]}(#{key[:default]}blank=#{is_required})")
       end
     end
-    return_array.push("    created_at = models.DateTimeField(auto_now_add=True)", "    updated_at = models.DateTimeField(auto_now=True)")
+    return_array.push("  created_at = models.DateTimeField(auto_now_add=True)", "  updated_at = models.DateTimeField(auto_now=True)")
     simple_json_down_part_format_array = ["res['id'] = self.pk"]
     many_to_many.each do |data|
       simple_json_down_part_format_array.push("\t\tres['#{data}'] = list(self.#{data}.values())")
@@ -79,15 +79,15 @@ module Helper
         is_required = ""
         (each_field[2] && each_field[2] === "req") ? is_required = "True" : is_required = "False"
         if index > 0
-          form_fields_data_create.push("\tself.validator.expect('#{field_name}', #{field_type}, is_required=#{is_required})")
-          form_fields_data_update.push("\tself.validator.expect('#{field_name}', #{field_type}, is_required=False)")
-          create_fields_data.push("\t\t#{field_name}=args['#{field_name}']")
-          update_fields_data.push("\t  gotten_data.#{field_name}= args['#{field_name}']")
+          form_fields_data_create.push("\t\tself.validator.expect('#{field_name}', #{field_type}, is_required=#{is_required})")
+          form_fields_data_update.push("\t\tself.validator.expect('#{field_name}', #{field_type}, is_required=False)")
+          create_fields_data.push("\t\t\t\t#{field_name}=args['#{field_name}'],")
+          update_fields_data.push("\t\t\tgotten_data.#{field_name}= args['#{field_name}']")
         else
           form_fields_data_create.push("self.validator.expect('#{field_name}', #{field_type}, is_required=#{is_required})")
           form_fields_data_update.push("self.validator.expect('id', str, is_required=True)")
-          form_fields_data_update.push("\tself.validator.expect('#{field_name}', #{field_type}, is_required=False)")
-          create_fields_data.push("#{field_name}=args['#{field_name}']")
+          form_fields_data_update.push("\t\tself.validator.expect('#{field_name}', #{field_type}, is_required=False)")
+          create_fields_data.push("#{field_name}=args['#{field_name}'],")
           update_fields_data.push("gotten_data.#{field_name}= args['#{field_name}']")
         end
     end
@@ -102,7 +102,7 @@ module Helper
  def self.association_functions(model_name, route_name, associations_array)
 
    # associations_array = associations_array.split(",")
-   associations_array = [associations_array, "#{associations_array}ores"]
+   associations_array = [associations_array, "#{associations_array}_test"]
 
    routes_array = [" "]
    handler_functions_array = []
