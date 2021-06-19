@@ -63,4 +63,22 @@ rake g:delete asset apps__asset_management
 ```
 
 ## MODEL GENERATOR
-### USAGE 
+### USAGE
+```ruby
+"""
+Lets Add A Group Model which has the following fields;
+name        => String => Required
+description => String => Not Required
+users => Users => Association (Group Can Have Many Users)
+info => JSON field => Not Required
+
+lets look at the create command
+rake g:model <Model Name> <directory> <field1:type:required?> <field2:type:required?>.......
+
+This is how you will create something like that
+"""
+
+rake g:model Group apps__users name:str:req description:str users:mm info:json
+
+# run the command and you're done
+```
