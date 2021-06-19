@@ -28,9 +28,9 @@ class AssetStore:
       id = args['id']
       gotten_data = Asset.objects.filter(pk=id)[0]
       gotten_data.name= args['name']
-      gotten_data.description= args['description']
-      gotten_data.is_archived= args['is_archived']
-      gotten_data.info= args['info']
+			gotten_data.description= args['description']
+			gotten_data.is_archived= args['is_archived']
+			gotten_data.info= args['info']
       gotten_data.save()
       return gotten_data, None
     except Exception as e:

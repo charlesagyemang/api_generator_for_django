@@ -21,9 +21,9 @@ class AssetHandler(RouteHandler):
     self.add('/assets.test', self.test)
     # MANY TO MANY ROUTE SECTION
      
-    self.add('/assets.add.documents', self.add_documents)
-    self.add('/assets.add.files', self.add_files)
-    self.add('/assets.add.reports', self.add_reports)
+		self.add('/assets.add.documents', self.add_documents)
+		self.add('/assets.add.files', self.add_files)
+		self.add('/assets.add.reports', self.add_reports)
 
 
   def test(self, request):
@@ -88,9 +88,9 @@ class AssetHandler(RouteHandler):
     args: dict = context.args
     # verify the body of the incoming request
     self.validator.expect('name', str, is_required=True)
-    self.validator.expect('description', str, is_required=False)
-    self.validator.expect('is_archived', bool, is_required=False)
-    self.validator.expect('info', json, is_required=False)
+		self.validator.expect('description', str, is_required=False)
+		self.validator.expect('is_archived', bool, is_required=False)
+		self.validator.expect('info', json, is_required=False)
     args, err = self.validator.verify(args, strict=True)
     if err:
       return err
@@ -105,10 +105,10 @@ class AssetHandler(RouteHandler):
     args: dict = context.args
     # verify the body of the incoming request
     self.validator.expect('id', str, is_required=True)
-    self.validator.expect('name', str, is_required=False)
-    self.validator.expect('description', str, is_required=False)
-    self.validator.expect('is_archived', bool, is_required=False)
-    self.validator.expect('info', json, is_required=False)
+		self.validator.expect('name', str, is_required=False)
+		self.validator.expect('description', str, is_required=False)
+		self.validator.expect('is_archived', bool, is_required=False)
+		self.validator.expect('info', json, is_required=False)
     args, err = self.validator.verify(args, strict=True)
     if err:
       return err
