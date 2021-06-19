@@ -111,7 +111,7 @@ module Helper
 
    associations_array.each do |associations|
      ## routes
-     routes_array.push("\tself.add('/#{route_name}.add.#{associations}', self.add_#{associations})")
+     routes_array.push("\t\tself.add('/#{route_name}.add.#{associations}', self.add_#{associations})")
 
      ## handler_function format
      handler_function = """
