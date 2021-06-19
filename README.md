@@ -61,3 +61,6 @@ rake g:crud Asset default apps__asset_management name:str:req desc:str is_delete
 ## lets delete the Asset generation
 rake g:delete asset apps__asset_management
 ```
+
+## MODEL GENERATOR
+### USAGE 

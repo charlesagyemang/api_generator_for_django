@@ -1,4 +1,4 @@
-require_relative './generator'
+require_relative './model_generator'
 
 def form_validation_fields(fields)
   form_fields_data_create = []
@@ -59,7 +59,6 @@ namespace :g do
         else
             puts "Error!!!!: See how To Use This Below: \nrake g:crud  <ModelName> <Association> <Directory>"
         end
-        #rake g:crud  Investment owners  apps__usersrake g:crud  Investment owners  #{DIRECTORY}
     end
 
     task :delete do
@@ -73,5 +72,13 @@ namespace :g do
         `rm -rf #{DIRECTORY}/store/#{MODEL_NAME}_store.py`
         puts "========DELETING #{DIRECTORY}/store/#{MODEL_NAME}_store.py========"
     end
-    #rake g:delete investment
+
+    task :model do
+      ARGV.each { |a| task a.to_sym do ; end }
+      MODEL_NAME = ARGV[1].to_s
+      DIRECTORY  = ARGV[2].to_s
+      FIELDS     = ARGV[3..-1]
+      Generator::generate_model(MODEL_NAME, DIRECTORY, FIELDS)
+      puts "========SUCCESS========"
+    end
 end
