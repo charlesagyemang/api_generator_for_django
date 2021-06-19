@@ -23,7 +23,7 @@ ROUTE_HANDLERS = [
   PermissionHandler(),
   UserProfileHandler(),
   UserGroupHandler(),
-  AuthHandler(), 
+  AuthHandler(),
 ]
 
 for handler in ROUTE_HANDLERS:

@@ -34,17 +34,16 @@ end
 namespace :g do
     desc 'GENERATE CRUD FUNCTIONALITIES FOR SPECIFIED MODEL IN SPECIFIED FOLDER'
     task :crud do
+
         ARGV.each { |a| task a.to_sym do ; end }
         MODEL_NAME = ARGV[1].to_s
         ASSOCIATIONS = ARGV[2].to_s
         DIRECTORY =  ARGV[3].to_s
-        default_fields = ["name:str:req", "description:str"]
-
         has_fields = ARGV.length > 4
+
         if (MODEL_NAME.length > 0 && ASSOCIATIONS.length > 0 &&DIRECTORY.length > 0)
             if has_fields
-              fields = ARGV[4..-1]
-              FIELDS =  form_validation_fields(fields)
+              FIELDS = ARGV[4..-1]
               Generator::generate(MODEL_NAME, ASSOCIATIONS, DIRECTORY, FIELDS)
               puts "========SUCCESS========"
             else
@@ -52,7 +51,7 @@ namespace :g do
               puts "MODEL NAME:   #{MODEL_NAME}"
               puts "ASSOCIATIONS: #{ASSOCIATIONS}"
               puts "DIRECTORY:    #{DIRECTORY}"
-              puts FIELDS = form_validation_fields(default_fields)
+              FIELDS = ["name:str:req", "description:str"]
               Generator::generate(MODEL_NAME, ASSOCIATIONS, DIRECTORY, FIELDS)
               puts "========SUCCESS========"
             end
@@ -80,5 +79,26 @@ namespace :g do
       FIELDS     = ARGV[3..-1]
       Generator::generate_model(MODEL_NAME, DIRECTORY, FIELDS)
       puts "========SUCCESS========"
+    end
+
+    task :scaffold do
+      ARGV.each { |a| task a.to_sym do ; end }
+      MODEL_NAME = ARGV[1].to_s
+      ASSOCIATIONS = ARGV[2].to_s
+      DIRECTORY =  ARGV[3].to_s
+      has_fields = ARGV.length > 4
+      if has_fields
+        puts "====== GENERATING MODEL ========"
+        FIELDS =  ARGV[4..-1]
+        Generator::generate_model(MODEL_NAME, DIRECTORY, FIELDS)
+        puts "======== MODEL GENERATED SUCCESSFULLY ========"
+        puts "====== GENERATING CRUD ========"
+        Generator::generate(MODEL_NAME, ASSOCIATIONS, DIRECTORY, FIELDS)
+        puts "======== CRUD GENERATED SUCCESSFULLY ========"
+        puts "======== PROCESS COMPLETE ========"
+      else
+        puts "Error!!!! Please provide fields for the model to be generated with. Read the docs to know how"
+      end
+      # rake g:scaffold Asset documents apps__users  name:str:req description:str documents:mm is_archived:bool
     end
 end
