@@ -103,8 +103,7 @@ module Helper
 
  def self.association_functions(model_name, route_name, associations_array)
 
-   # associations_array = associations_array.split(",")
-   associations_array = [associations_array, "#{associations_array}_test"]
+   associations_array = associations_array.split(",")
 
    routes_array = [" "]
    handler_functions_array = []

@@ -64,9 +64,18 @@ class AssetService:
      
 
 
-  def add_documents_test(self, context: Context, args: dict) -> (dict, ApiError): # type: ignore
+  def add_files(self, context: Context, args: dict) -> (dict, ApiError): # type: ignore
     # print('==== INIT ARGS =====', args)
-    response, err = self.store.add_documents_test(context, args)
+    response, err = self.store.add_files(context, args)
+    if err:
+      return None, err
+    return serialize(response, full=True), None
+     
+
+
+  def add_reports(self, context: Context, args: dict) -> (dict, ApiError): # type: ignore
+    # print('==== INIT ARGS =====', args)
+    response, err = self.store.add_reports(context, args)
     if err:
       return None, err
     return serialize(response, full=True), None

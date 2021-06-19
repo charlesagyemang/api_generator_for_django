@@ -22,7 +22,8 @@ class AssetHandler(RouteHandler):
     # MANY TO MANY ROUTE SECTION
      
     self.add('/assets.add.documents', self.add_documents)
-    self.add('/assets.add.documents_test', self.add_documents_test)
+    self.add('/assets.add.files', self.add_files)
+    self.add('/assets.add.reports', self.add_reports)
 
 
   def test(self, request):
@@ -139,18 +140,37 @@ class AssetHandler(RouteHandler):
      
 
 
-  def add_documents_test(self, request):
+  def add_files(self, request):
     context: Context = request.context
     args: dict = context.args
     # verify the body of the incoming request
     self.validator.expect('id', str, is_required=True)
-    self.validator.expect('documents_test_array', json, is_required=True)
+    self.validator.expect('files_array', json, is_required=True)
     args, err = self.validator.verify(args, strict=True)
     # print('====== ARGS ======', args)
     if err:
       return err
-    args['documents_test_array'] = json.loads(args['documents_test_array'])
-    response, err = self.service.add_documents_test(context, args)
+    args['files_array'] = json.loads(args['files_array'])
+    response, err = self.service.add_files(context, args)
+    if err:
+      return err
+    return ApiResponse(data=response)
+
+     
+
+
+  def add_reports(self, request):
+    context: Context = request.context
+    args: dict = context.args
+    # verify the body of the incoming request
+    self.validator.expect('id', str, is_required=True)
+    self.validator.expect('reports_array', json, is_required=True)
+    args, err = self.validator.verify(args, strict=True)
+    # print('====== ARGS ======', args)
+    if err:
+      return err
+    args['reports_array'] = json.loads(args['reports_array'])
+    response, err = self.service.add_reports(context, args)
     if err:
       return err
     return ApiResponse(data=response)

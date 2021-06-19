@@ -96,7 +96,7 @@ is_archived => Boolean => Not Required
 info => JSON field => Not Required
 
 lets look at the create command
-rake g:scaffold <Model Name> <Associations> <directory> <field1:type:required?> <field2:type:required?>.......
+rake g:scaffold <Model Name> <Associations(Separate them by Comma if More than One)> <directory> <field1:type:required?> <field2:type:required?>.......
 
 This is how you will create something like that
 """
@@ -105,4 +105,6 @@ This is how you will create something like that
 
 
 # run the command and you're done
+
+#rake g:scaffold Asset documents,files,reports  apps__users  name:str:req description:str documents:mm is_archived:bool info:json files:mm reports:mm
 ```

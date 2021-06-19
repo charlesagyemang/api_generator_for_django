@@ -4,6 +4,7 @@ import uuid
 from apps__users import models as user_models
 from django.forms.models import model_to_dict #type: ignore  
   
+  
 class Asset(models.Model):
   '''
     This describes the Asset table
@@ -14,6 +15,8 @@ class Asset(models.Model):
   documents = models.ManyToManyField(Document, blank=False)
   is_archived = models.BooleanField(blank=False)
   info = models.JSONField(blank=False)
+  files = models.ManyToManyField(File, blank=False)
+  reports = models.ManyToManyField(Report, blank=False)
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
 
@@ -27,7 +30,9 @@ class Asset(models.Model):
   def simple_json(self):
     res = model_to_dict(self, ["id", "name", "description", "is_archived", "info"])
     res['id'] = self.pk
-		res['documents'] = list(self.documents.values())
+    res['documents'] = list(self.documents.values())
+    res['files'] = list(self.files.values())
+    res['reports'] = list(self.reports.values())
     return res
 
   def full_json(self):

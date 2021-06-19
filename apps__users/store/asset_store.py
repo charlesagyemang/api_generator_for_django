@@ -91,12 +91,26 @@ class AssetStore:
      
 
 
-  def add_documents_test(self, context: Context, args: dict) -> (Asset, ApiError): # type: ignore
+  def add_files(self, context: Context, args: dict) -> (Asset, ApiError): # type: ignore
     try:
-      pk, documents_test_array = args['id'], args['documents_test_array']
-      # print('===documents_test ARRAY =====', documents_test_array)
+      pk, files_array = args['id'], args['files_array']
+      # print('===files ARRAY =====', files_array)
       data_to_update = Asset.objects.filter(pk=pk)[0]
-      data_to_update.documents_test.add(*documents_test_array)
+      data_to_update.files.add(*files_array)
+      data_to_update.save()
+      return data_to_update, None
+    except Exception as e:
+      return None, ApiError(str(e))
+
+     
+
+
+  def add_reports(self, context: Context, args: dict) -> (Asset, ApiError): # type: ignore
+    try:
+      pk, reports_array = args['id'], args['reports_array']
+      # print('===reports ARRAY =====', reports_array)
+      data_to_update = Asset.objects.filter(pk=pk)[0]
+      data_to_update.reports.add(*reports_array)
       data_to_update.save()
       return data_to_update, None
     except Exception as e:

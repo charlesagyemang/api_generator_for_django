@@ -1,36 +1,5 @@
 require_relative './generator'
 
-def form_validation_fields(fields)
-  form_fields_data_create = []
-  form_fields_data_update = []
-  create_fields_data = []
-  update_fields_data = []
-  fields.each_with_index do |field, index|
-      each_field = field.split(":")
-      field_name, field_type = each_field[0], each_field[1]
-      is_required = ""
-      (each_field[2] && each_field[2] === "req") ? is_required = "True" : is_required = "False"
-      if index > 0
-        form_fields_data_create.push("\tself.validator.expect('#{field_name}', #{field_type}, is_required=#{is_required})")
-        form_fields_data_update.push("\tself.validator.expect('#{field_name}', #{field_type}, is_required=False)")
-        create_fields_data.push("\t\t#{field_name}=args['#{field_name}']")
-        update_fields_data.push("\t  gotten_data.#{field_name}= args['#{field_name}']")
-      else
-        form_fields_data_create.push("self.validator.expect('#{field_name}', #{field_type}, is_required=#{is_required})")
-        form_fields_data_update.push("self.validator.expect('id', str, is_required=True)")
-        form_fields_data_update.push("\tself.validator.expect('#{field_name}', #{field_type}, is_required=False)")
-        create_fields_data.push("#{field_name}=args['#{field_name}']")
-        update_fields_data.push("gotten_data.#{field_name}= args['#{field_name}']")
-      end
-  end
-  return {
-    :form_fields_data_create   => form_fields_data_create.join("\n"),
-    :form_fields_data_update   => form_fields_data_update.join("\n"),
-    :create_fields_data => create_fields_data.join("\n"),
-    :update_fields_data => update_fields_data.join("\n"),
-  }
-end
-
 namespace :g do
     desc 'GENERATE CRUD FUNCTIONALITIES FOR SPECIFIED MODEL IN SPECIFIED FOLDER'
     task :crud do
@@ -87,6 +56,7 @@ namespace :g do
       ASSOCIATIONS = ARGV[2].to_s
       DIRECTORY =  ARGV[3].to_s
       has_fields = ARGV.length > 4
+      puts ASSOCIATIONS
       if has_fields
         puts "====== GENERATING MODEL ========"
         FIELDS =  ARGV[4..-1]
