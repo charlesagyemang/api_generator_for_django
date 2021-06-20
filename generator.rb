@@ -1,6 +1,6 @@
 module Helper
   def self.insert_in_line(line_number, data, other_data)
-    File.open('__main__/urls.py', 'r+') do |file|
+    File.open('_main_/urls.py', 'r+') do |file|
       lines = file.each_line.to_a
       val = lines[line_number]
       lines[line_number]="""#{data}#just added \n#{val}"""
